@@ -127,9 +127,9 @@
                                             <children>
                                                 <ButtonBar prefHeight="157.0" prefWidth="357.0">
                                                     <buttons>
-                                                        <Button fx:id="buttonAdd" layoutX="140.0" layoutY="47.0"
-                                                                mnemonicParsing="false" onAction="#addNewPerson"
-                                                                text="add"/>
+                                                        <Button fx:id="buttonUpdate" layoutX="140.0" layoutY="47.0"
+                                                                mnemonicParsing="false" onAction="#updatePerson"
+                                                                text="update"/>
                                                         <Button fx:id="buttonDelete" layoutX="190.0" layoutY="47.0"
                                                                 mnemonicParsing="false" onAction="#deletePerson"
                                                                 text="delete"/>
