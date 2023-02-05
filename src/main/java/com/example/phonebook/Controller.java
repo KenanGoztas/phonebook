@@ -90,16 +90,13 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        persons.add(new Person("Kenan", "Göztas", LocalDate.of(1980, 01, 01), "Ulm", "0123456"));
         setTablePersons();
         tablePersons.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPerson(newValue)
         );
-
-
-
-
     }
 
-
+    public void openXML(ActionEvent actionEvent) {
+        System.out.println("");
+    }
 }
