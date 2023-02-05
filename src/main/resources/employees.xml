@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<employees>
+    <employeeMap>
+        <entry>
+            <key>1</key>
+            <value>
+                <surname>1</surname>
+                <name>Lokesh</name>
+                <birthday>Gupta</birthday>
+                <address>100.0</address>
+				<telephoneNumber>100.0</telephoneNumber>				
+            </value>
+        </entry>
+         <entry>
+            <key>2</key>
+            <value>
+                <surname>1</surname>
+                <name>Lokesh</name>
+                <birthday>Gupta</birthday>
+                <address>100.0</address>
+				<telephoneNumber>100.0</telephoneNumber>				
+            </value>
+        </entry>
+    </employeeMap>
+</employees>
