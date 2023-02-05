@@ -8,6 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -27,16 +31,16 @@ public class Controller implements Initializable {
     private Button buttonReset;
 
     @FXML
-    private TableColumn<Person, String> columnName;
+    private TableColumn<Employee, String> columnName;
 
     @FXML
-    private TableColumn<Person, String> columnSurname;
+    private TableColumn<Employee, String> columnSurname;
 
     @FXML
     private DatePicker datePickerBirthday;
 
     @FXML
-    private TableView<Person> tablePersons;
+    private TableView<Employee> tablePersons;
 
     @FXML
     private TextField textFieldAddress;
@@ -50,22 +54,22 @@ public class Controller implements Initializable {
     @FXML
     private TextField textFieldTelephone;
 
-    private ObservableList<Person> persons = FXCollections.observableArrayList();
+    private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
     public void setTablePersons() {
-        columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        columnSurname.setCellValueFactory(new PropertyValueFactory<Person, String>("surname"));
-        tablePersons.setItems(persons);
+        columnName.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+        columnSurname.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
+        tablePersons.setItems(employees);
         tablePersons.refresh();
     }
 
-    public void showPerson(Person person) {
-        if (person != null) {
-            textFieldName.setText(person.getName());
-            textFieldSurname.setText(person.getSurname());
-            datePickerBirthday.setValue(person.getBirthday());
-            textFieldAddress.setText(person.getAddress());
-            textFieldTelephone.setText(person.getTelephoneNumber());
+    public void showPerson(Employee employee) {
+        if (employee != null) {
+            textFieldName.setText(employee.getName());
+            textFieldSurname.setText(employee.getSurname());
+            datePickerBirthday.setValue(employee.getBirthday());
+            textFieldAddress.setText(employee.getAddress());
+            textFieldTelephone.setText(employee.getTelephoneNumber());
         } else {
             textFieldName.setText("");
             textFieldSurname.setText("");
@@ -77,14 +81,14 @@ public class Controller implements Initializable {
 
     @FXML
     void addNewPerson(ActionEvent event) {
-        persons.add(new Person(textFieldName.getText(), textFieldSurname.getText(), datePickerBirthday.getValue(),
+        employees.add(new Employee(textFieldName.getText(), textFieldSurname.getText(), datePickerBirthday.getValue(),
                 textFieldAddress.getText(), textFieldTelephone.getText()));
     }
 
     @FXML
     void deletePerson(ActionEvent event) {
         if (tablePersons.getSelectionModel().getSelectedIndex() != -1)
-            persons.remove(tablePersons.getSelectionModel().getSelectedIndex());
+            employees.remove(tablePersons.getSelectionModel().getSelectedIndex());
     }
 
 
@@ -96,7 +100,10 @@ public class Controller implements Initializable {
         );
     }
 
-    public void openXML(ActionEvent actionEvent) {
-        System.out.println("");
+    public void openXML(ActionEvent actionEvent) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(EmployeeMap.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        EmployeeMap empMap = (EmployeeMap) jaxbUnmarshaller.unmarshal( new File("c:/tmp/employees.xml") );
+        employees = FXCollections.observableArrayList(empMap.getEmployeeMap().values());
     }
 }
