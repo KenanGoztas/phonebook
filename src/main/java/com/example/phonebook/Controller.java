@@ -86,8 +86,19 @@ public class Controller implements Initializable {
     }
     @FXML
     void updatePerson(ActionEvent event) {
-       /* persons.add(new Person(textFieldName.getText(), textFieldSurname.getText(), /* datePickerBirthday.getValue(), /
-                textFieldAddress.getText(), textFieldTelephone.getText()));*/
+        if (tablePersons.getSelectionModel().getSelectedIndex() != -1) {
+            int pos = tablePersons.getSelectionModel().getSelectedIndex();
+            Employee employee = persons.get(pos);
+            //persons.remove(employee);
+            employee.setName(textFieldName.getText());
+            employee.setSurname(textFieldSurname.getText());
+            employee.setAddress(textFieldAddress.getText());
+            employee.setTelephoneNumber(textFieldTelephone.getText());
+            //persons.add(pos, employee);
+            tablePersons.setItems(persons);
+            tablePersons.refresh();
+            //save to xml
+        }
     }
     @FXML
     void deletePerson(ActionEvent event) {
@@ -107,7 +118,7 @@ public class Controller implements Initializable {
     public void openXML(ActionEvent actionEvent) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(EmployeeMap.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        EmployeeMap empMap = (EmployeeMap) jaxbUnmarshaller.unmarshal( new File("/Users/kenangoztas/javaProjelerim/phonebook2/src/main/resources/employees.xml.xml"));
+        EmployeeMap empMap = (EmployeeMap) jaxbUnmarshaller.unmarshal( new File("C:\\Users\\kilic\\IdeaProjects\\phonebook\\src\\main\\resources\\employees.xml"));
         persons.clear();
         persons.addAll(empMap.getEmployeeMap().values());
         tablePersons.setItems(persons);
